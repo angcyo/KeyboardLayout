@@ -1,5 +1,6 @@
 package com.angcyo.keyboardlayout
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.Spannable
@@ -26,7 +27,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         val spannableStringBuilder = SpannableStringBuilder("前\n面默认测\n试文本")
-        spannableStringBuilder.setSpan(ShapeSpan(), 3, 5, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableStringBuilder.setSpan(ShapeSpan(Color.GRAY,
+                20 * resources.displayMetrics.density,
+                (6 * resources.displayMetrics.density).toInt(),
+                (4 * resources.displayMetrics.density).toInt()),
+                3, 5, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
         textView.text = spannableStringBuilder
     }
