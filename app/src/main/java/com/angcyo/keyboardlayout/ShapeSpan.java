@@ -21,21 +21,22 @@ public class ShapeSpan extends DynamicDrawableSpan {
     int size;
     RectF mRectF;
     int bgColor;
+    int textColor = -1;
     float roundSize;
 
-    int padding = 0;
-    int margin = 0;
+    int paddingLeft = 0;
+    int paddingRight = 0;
+    int paddingTop = 0;
+    int paddingBottom = 0;
+
+    int marginLeft = 0;
+    int marginTop = 0;
+    int marginRight = 0;
+    int marginBottom = 0;
 
     public ShapeSpan(int bgColor, float roundSize) {
         this.bgColor = bgColor;
         this.roundSize = roundSize;
-    }
-
-    public ShapeSpan(int bgColor, float roundSize, int padding, int margin) {
-        this.bgColor = bgColor;
-        this.roundSize = roundSize;
-        this.padding = padding;
-        this.margin = margin;
     }
 
     @Override
@@ -45,7 +46,7 @@ public class ShapeSpan extends DynamicDrawableSpan {
 
     @Override
     public int getSize(Paint paint, CharSequence text, int start, int end, Paint.FontMetricsInt fm) {
-        size = (int) paint.measureText(text.subSequence(start, end).toString()) + 2 * padding + 2 * margin;
+        size = (int) paint.measureText(text.subSequence(start, end).toString()) + paddingLeft + paddingRight + marginLeft + marginRight;
         return size;
     }
 
@@ -56,9 +57,57 @@ public class ShapeSpan extends DynamicDrawableSpan {
         if (mRectF == null) {
             mRectF = new RectF();
         }
-        mRectF.set(x + margin, top - margin, x + size - margin, bottom + margin);
+        mRectF.set(x + marginLeft, top - marginTop, x + size - marginRight, bottom + marginBottom);
         canvas.drawRoundRect(mRectF, roundSize, roundSize, paint);
-        paint.setColor(oldColor);
-        canvas.drawText(text, start, end, x + margin + padding, y, paint);
+        if (textColor == -1) {
+            paint.setColor(oldColor);
+        } else {
+            paint.setColor(textColor);
+        }
+        canvas.drawText(text, start, end, x + marginLeft + paddingLeft, y, paint);
+    }
+
+    public void setPaddingLeft(int paddingLeft) {
+        this.paddingLeft = paddingLeft;
+    }
+
+    public void setPaddingRight(int paddingRight) {
+        this.paddingRight = paddingRight;
+    }
+
+    public void setPaddingTop(int paddingTop) {
+        this.paddingTop = paddingTop;
+    }
+
+    public void setPaddingBottom(int paddingBottom) {
+        this.paddingBottom = paddingBottom;
+    }
+
+    public void setMarginLeft(int marginLeft) {
+        this.marginLeft = marginLeft;
+    }
+
+    public void setMarginTop(int marginTop) {
+        this.marginTop = marginTop;
+    }
+
+    public void setMarginRight(int marginRight) {
+        this.marginRight = marginRight;
+    }
+
+    public void setMarginBottom(int marginBottom) {
+        this.marginBottom = marginBottom;
+    }
+
+    public void setBgColor(int bgColor) {
+        this.bgColor = bgColor;
+    }
+
+    public void setTextColor(int textColor) {
+        this.textColor = textColor;
+    }
+
+    public void setRoundSize(float roundSize) {
+        this.roundSize = roundSize;
     }
 }

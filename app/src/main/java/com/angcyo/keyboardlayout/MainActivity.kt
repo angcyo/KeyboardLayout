@@ -28,9 +28,19 @@ class MainActivity : AppCompatActivity() {
 
         val spannableStringBuilder = SpannableStringBuilder("前\n面默认测\n试文本")
         spannableStringBuilder.setSpan(ShapeSpan(Color.GRAY,
-                20 * resources.displayMetrics.density,
-                (6 * resources.displayMetrics.density).toInt(),
-                (4 * resources.displayMetrics.density).toInt()),
+                20 * resources.displayMetrics.density).apply {
+            paddingLeft = (6 * resources.displayMetrics.density).toInt()
+            paddingRight = paddingLeft
+            paddingTop = paddingLeft / 2
+            paddingBottom = paddingTop
+
+            marginLeft = (4 * resources.displayMetrics.density).toInt()
+            marginRight = marginLeft
+            marginTop = marginLeft / 2
+            marginBottom = marginTop
+
+            textColor = Color.RED
+        },
                 3, 5, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
         textView.text = spannableStringBuilder
